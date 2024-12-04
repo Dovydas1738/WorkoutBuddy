@@ -14,7 +14,7 @@ namespace WorkoutBuddy.Core.Models
         public int MinReps { get; set; }
         public int MaxReps { get; set; }
         public int CurrentReps { get; set; }
-        public string Feedback { get; set; }
+        public string? Feedback { get; set; }
 
         public Exercise(int workoutId, string name, int minReps, int maxReps, int currentReps)
         {
