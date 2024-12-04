@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutBuddy.Api", "WebApplication1\WorkoutBuddy.Api.csproj", "{1DC01D73-4E75-445D-8156-129A65C51909}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutBuddy.Core", "WorkoutBuddy.Core\WorkoutBuddy.Core.csproj", "{DE0428EC-4B9B-4A79-B34F-CE5C1EA567F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1DC01D73-4E75-445D-8156-129A65C51909}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DC01D73-4E75-445D-8156-129A65C51909}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DC01D73-4E75-445D-8156-129A65C51909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE0428EC-4B9B-4A79-B34F-CE5C1EA567F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE0428EC-4B9B-4A79-B34F-CE5C1EA567F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE0428EC-4B9B-4A79-B34F-CE5C1EA567F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE0428EC-4B9B-4A79-B34F-CE5C1EA567F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
