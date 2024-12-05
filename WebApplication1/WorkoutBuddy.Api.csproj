@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WorkoutBuddy.Core\WorkoutBuddy.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Requests\" />
+  </ItemGroup>
+
 </Project>

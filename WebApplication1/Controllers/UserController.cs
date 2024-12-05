@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
 using WorkoutBuddy.Core.Contracts;
 using WorkoutBuddy.Core.Models;
 using WorkoutBuddy.Core.Services;
@@ -16,8 +17,8 @@ namespace WorkoutBuddy.Api.Controllers
             _userService = userService;
         }
 
-        [HttpPost("Create a user")]
-        public async Task<IActionResult> CreateUser(User user)
+        [HttpPost("users/register")]
+        public async Task<IActionResult> RegisterUser([FromBody]User user)
         {
             try
             {
@@ -28,6 +29,28 @@ namespace WorkoutBuddy.Api.Controllers
             {
                 return Problem();
             }
+        }
+
+        [HttpGet("users/{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [HttpPost("users/authenticate")]
+        public async Task<IActionResult> AuthenticateUser([FromBody] LoginRequest login)
+        {
+            var token = await _userService.Authenticate(login.Username, login.Password);
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(token);
         }
     }
 }
