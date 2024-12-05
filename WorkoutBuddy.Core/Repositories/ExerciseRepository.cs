@@ -11,50 +11,58 @@ namespace WorkoutBuddy.Core.Repositories
 {
     public class ExerciseRepository : IExerciseRepository
     {
-        private readonly WorkoutBuddyDbContext _context;
-
-        public ExerciseRepository(WorkoutBuddyDbContext context)
-        {
-            _context = context;
-        }
-
         public async Task AddAsync(Exercise exercise)
         {
-            await _context.Exercises.AddAsync(exercise);
-            await _context.SaveChangesAsync();
+            using (var context = new WorkoutBuddyDbContext())
+            {
+                await context.Exercises.AddAsync(exercise);
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteAsync(int id)
         {
-            var exercise = await _context.Exercises.FindAsync(id);
-            if (exercise != null)
+            using (var context = new WorkoutBuddyDbContext())
             {
-                _context.Exercises.Remove(exercise);
-                await _context.SaveChangesAsync();
+                var exercise = await context.Exercises.FindAsync(id);
+                if (exercise != null)
+                {
+                    context.Exercises.Remove(exercise);
+                    await context.SaveChangesAsync();
+                }
             }
         }
 
         public async Task<IEnumerable<Exercise>> GetAllByWorkoutIdAsync(int workoutId)
         {
-            return await _context.Exercises
-                .Where(e => e.WorkoutId == workoutId)
-                .ToListAsync();
+            using (var context = new WorkoutBuddyDbContext())
+            {
+                return await context.Exercises
+                    .Where(e => e.WorkoutId == workoutId)
+                    .ToListAsync();
+            }
         }
 
         public async Task<Exercise> GetByIdAsync(int id)
         {
-            var exercise = await _context.Exercises.FindAsync(id);
-            if (exercise != null)
+            using (var context = new WorkoutBuddyDbContext())
             {
-                return exercise;
+                var exercise = await context.Exercises.FindAsync(id);
+                if (exercise != null)
+                {
+                    return exercise;
+                }
+                throw new KeyNotFoundException($"Exercise with ID {id} was not found.");
             }
-            throw new KeyNotFoundException($"Exercise with ID {id} was not found.");
         }
 
         public async Task UpdateAsync(Exercise exercise)
         {
-            _context.Exercises.Update(exercise);
-            await _context.SaveChangesAsync();
+            using (var context = new WorkoutBuddyDbContext())
+            {
+                context.Exercises.Update(exercise);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

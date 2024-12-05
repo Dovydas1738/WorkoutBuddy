@@ -11,11 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>(_ => new UserRepository()); //remove constructor, use using var context
+builder.Services.AddScoped<IUserRepository, UserRepository>(_ => new UserRepository());
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>(_ => new ExerciseRepository());
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
-builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>(_ => new WorkoutRepository());
 builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 
 var app = builder.Build();

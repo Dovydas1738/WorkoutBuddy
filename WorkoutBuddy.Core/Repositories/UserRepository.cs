@@ -11,48 +11,56 @@ namespace WorkoutBuddy.Core.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly WorkoutBuddyDbContext _context;
-
-        public UserRepository(WorkoutBuddyDbContext context)
-        {
-            _context = context;
-        }
-
         public async Task AddAsync(User user)
         {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            using (var context = new WorkoutBuddyDbContext())
+            {
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
+            using (var context = new WorkoutBuddyDbContext())
             {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
+                var user = await context.Users.FindAsync(id);
+                if (user != null)
+                {
+                    context.Users.Remove(user);
+                    await context.SaveChangesAsync();
+                }
             }
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await _context.Users.ToListAsync();
+            using (var context = new WorkoutBuddyDbContext())
+            {
+                return await context.Users.ToListAsync();
+            }
         }
 
         public async Task<User> GetByIdAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if(user != null)
+            using (var context = new WorkoutBuddyDbContext())
             {
-                return user;
+                var user = await context.Users.FindAsync(id);
+                if (user != null)
+                {
+                    return user;
+                }
+                throw new KeyNotFoundException($"User with ID {id} was not found.");
             }
-            throw new KeyNotFoundException($"User with ID {id} was not found.");
         }
 
         public async Task UpdateAsync(User user)
         {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            using (var context = new WorkoutBuddyDbContext())
+            {
+                context.Users.Update(user);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
