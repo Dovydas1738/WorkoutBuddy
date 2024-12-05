@@ -12,7 +12,7 @@ using WorkoutBuddy.Core.Repositories;
 namespace WorkoutBuddy.Core.Migrations
 {
     [DbContext(typeof(WorkoutBuddyDbContext))]
-    [Migration("20241205135604_InitialCreate")]
+    [Migration("20241205144301_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -140,7 +140,7 @@ namespace WorkoutBuddy.Core.Migrations
                     b.Property<DateOnly>("WorkoutDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("WorkoutTemplateId")
+                    b.Property<int?>("WorkoutTemplateId")
                         .HasColumnType("int");
 
                     b.HasKey("WorkoutId");
@@ -200,7 +200,7 @@ namespace WorkoutBuddy.Core.Migrations
                     b.HasOne("WorkoutBuddy.Core.Models.Workout", "Workout")
                         .WithMany()
                         .HasForeignKey("WorkoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Exercise");
@@ -219,8 +219,7 @@ namespace WorkoutBuddy.Core.Migrations
                     b.HasOne("WorkoutBuddy.Core.Models.WorkoutTemplate", "WorkoutTemplate")
                         .WithMany()
                         .HasForeignKey("WorkoutTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("User");
 

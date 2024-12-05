@@ -52,7 +52,7 @@ namespace WorkoutBuddy.Core.Migrations
                     WorkoutId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    WorkoutTemplateId = table.Column<int>(type: "int", nullable: false),
+                    WorkoutTemplateId = table.Column<int>(type: "int", nullable: true),
                     WorkoutDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
@@ -68,8 +68,7 @@ namespace WorkoutBuddy.Core.Migrations
                         name: "FK_Workouts_WorkoutTemplates_WorkoutTemplateId",
                         column: x => x.WorkoutTemplateId,
                         principalTable: "WorkoutTemplates",
-                        principalColumn: "WorkoutTemplateId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "WorkoutTemplateId");
                 });
 
             migrationBuilder.CreateTable(
@@ -130,8 +129,7 @@ namespace WorkoutBuddy.Core.Migrations
                         name: "FK_ExerciseLogs_Workouts_WorkoutId",
                         column: x => x.WorkoutId,
                         principalTable: "Workouts",
-                        principalColumn: "WorkoutId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "WorkoutId");
                 });
 
             migrationBuilder.CreateIndex(

@@ -20,5 +20,22 @@ namespace WorkoutBuddy.Core.Repositories
         {
             optionsBuilder.UseSqlServer("Server=localhost;Database=WorkoutBuddy;Trusted_Connection=True;TrustServerCertificate=true;");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Workout>()
+                .HasOne(w => w.WorkoutTemplate)
+                .WithMany()
+                .HasForeignKey(w => w.WorkoutTemplateId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ExerciseLog>()
+                .HasOne(w => w.Workout)
+                .WithMany()
+                .HasForeignKey(w => w.WorkoutId)
+                .OnDelete(DeleteBehavior.NoAction);
+        }
     }
 }
