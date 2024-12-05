@@ -30,7 +30,7 @@ namespace WorkoutBuddy.Core.Services
 
         public async Task<IEnumerable<Exercise>> GetAllExercisesByWorkoutIdAsync(int workoutId)
         {
-            return await _exerciseRepository.GetAllByWorkoutIdAsync(workoutId);
+            return await _exerciseRepository.GetAllByWorkoutTemplateIdAsync(workoutId);
         }
 
         public async Task<Exercise> GetExerciseByIdAsync(int id)

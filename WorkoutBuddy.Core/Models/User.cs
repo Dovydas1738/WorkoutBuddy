@@ -13,11 +13,15 @@ namespace WorkoutBuddy.Core.Models
         public int UserId { get; set; }
         public required string Username { get; set; }
         public required string Password { get; set; }
+        public ICollection<WorkoutTemplate> WorkoutTemplates { get; set; }
+        public ICollection<Workout> Workouts { get; set; }
 
         public User(string username, string password)
         {
             Username = username;
             Password = password;
+            WorkoutTemplates = new List<WorkoutTemplate>();
+            Workouts = new List<Workout>();
         }
 
         public User() { }

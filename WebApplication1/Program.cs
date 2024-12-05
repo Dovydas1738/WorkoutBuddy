@@ -15,6 +15,10 @@ builder.Services.AddScoped<IUserRepository, UserRepository>(_ => new UserReposit
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>(_ => new ExerciseRepository());
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
+builder.Services.AddScoped<IExerciseLogRepository, ExerciseLogRepository>(_ => new ExerciseLogRepository());
+builder.Services.AddScoped<IExerciseLogService, ExerciseLogService>();
+builder.Services.AddScoped<IWorkoutTemplateRepository, WorkoutTemplateRepository>(_ => new WorkoutTemplateRepository());
+builder.Services.AddScoped<IWorkoutTemplateService, WorkoutTemplateService>();
 builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>(_ => new WorkoutRepository());
 builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 

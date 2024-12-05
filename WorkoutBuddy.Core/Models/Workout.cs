@@ -12,19 +12,19 @@ namespace WorkoutBuddy.Core.Models
     {
         [ForeignKey("UserId")]
         public int UserId { get; set; }
+        public User User { get; set; }
         [Key]
         public int WorkoutId { get; set; }
-        public string WorkoutType { get; set; }
+        [ForeignKey("WorkoutTemplateId")]
+        public int WorkoutTemplateId { get; set; }
+        public WorkoutTemplate WorkoutTemplate { get; set; }
         public List<Exercise> Exercises { get; set; }
         public DateOnly WorkoutDate { get; set; }
 
-        public Workout(int userId, int workoutId, string workoutType, List<Exercise> exercises)
+        public Workout(int userId, int workoutTemplateId)
         {
             UserId = userId;
-            WorkoutId = workoutId;
-            WorkoutType = workoutType;
-            Exercises = exercises;
-            WorkoutDate = DateOnly.FromDateTime(DateTime.Now);
+            WorkoutTemplateId = workoutTemplateId;
         }
 
         public Workout() { }

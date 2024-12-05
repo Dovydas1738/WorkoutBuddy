@@ -10,7 +10,7 @@ namespace WorkoutBuddy.Core.Contracts
     public interface IExerciseRepository
     {
         Task<Exercise> GetByIdAsync(int id);
-        Task<IEnumerable<Exercise>> GetAllByWorkoutIdAsync(int workoutId);
+        Task<IEnumerable<Exercise>> GetAllByWorkoutTemplateIdAsync(int workoutId);
         Task AddAsync(Exercise exercise);
         Task UpdateAsync(Exercise exercise);
         Task DeleteAsync(int id);

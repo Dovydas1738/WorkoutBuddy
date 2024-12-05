@@ -13,6 +13,8 @@ namespace WorkoutBuddy.Core.Repositories
         public DbSet<User> Users { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Workout> Workouts { get; set; }
+        public DbSet<WorkoutTemplate> WorkoutTemplates { get; set; }
+        public DbSet<ExerciseLog> ExerciseLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

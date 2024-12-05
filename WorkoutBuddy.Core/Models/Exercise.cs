@@ -12,20 +12,25 @@ namespace WorkoutBuddy.Core.Models
     {
         [Key]
         public int ExerciseId { get; set; }
-        [ForeignKey("WorkoutId")]
-        public int WorkoutId { get; set; }
+        [ForeignKey("WorkoutTemplateId")]
+        public int WorkoutTemplateId { get; set; }
+        public WorkoutTemplate WorkoutTemplate { get; set; }
         public string Name { get; set; }
+        public int Sets { get; set; }
         public int MinReps { get; set; }
         public int MaxReps { get; set; }
+        public float Weight { get; set; }
         public int CurrentReps { get; set; }
         public string? Feedback { get; set; }
 
-        public Exercise(int workoutId, string name, int minReps, int maxReps, int currentReps)
+        public Exercise(int workoutTemplateId, string name, int sets, int minReps, int maxReps, float weight, int currentReps)
         {
-            WorkoutId = workoutId;
+            WorkoutTemplateId = workoutTemplateId;
             Name = name;
+            Sets = sets;
             MinReps = minReps;
             MaxReps = maxReps;
+            Weight = weight;
             CurrentReps = currentReps;
         }
 

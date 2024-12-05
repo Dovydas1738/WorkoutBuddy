@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkoutBuddy.Core.Repositories;
 
@@ -11,9 +12,11 @@ using WorkoutBuddy.Core.Repositories;
 namespace WorkoutBuddy.Core.Migrations
 {
     [DbContext(typeof(WorkoutBuddyDbContext))]
-    partial class WorkoutBuddyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241205135604_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
