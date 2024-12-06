@@ -54,6 +54,14 @@ namespace WorkoutBuddy.Core.Repositories
             }
         }
 
+        public async Task<User> GetByUsernameAsync(string username)
+        {
+            using (var context = new WorkoutBuddyDbContext())
+            {
+                return await context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            }
+        }
+
         public async Task UpdateAsync(User user)
         {
             using (var context = new WorkoutBuddyDbContext())

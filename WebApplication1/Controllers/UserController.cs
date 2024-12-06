@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using WorkoutBuddy.Core.Contracts;
 using WorkoutBuddy.Core.Models;
 using WorkoutBuddy.Core.Services;
+using WorkoutBuddy.Api.Requests;
+using Azure.Core;
 
 namespace WorkoutBuddy.Api.Controllers
 {
@@ -18,39 +20,69 @@ namespace WorkoutBuddy.Api.Controllers
         }
 
         [HttpPost("users/register")]
-        public async Task<IActionResult> RegisterUser([FromBody]User user)
+        public async Task<IActionResult> RegisterUser([FromBody]UserRegisterRequest registerRequest)
         {
             try
             {
-                await _userService.CreateUserAsync(user);
-                return Ok();
+                var user = await _userService.GetUserByUsernameAsync(registerRequest.Username);
+
+                if (user == null)
+                {
+                    await _userService.CreateUserAsync(new User
+                    {
+                        Username = registerRequest.Username,
+                        Password = registerRequest.Password
+                    });
+                    return Ok(new {Message = "User registered successfully."});
+                }
+                else
+                {
+                    return Conflict(new { Message = "User already exists." });
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return Problem();
+                return Problem(detail: ex.Message);
             }
         }
 
-        [HttpGet("users/{id}")]
-        public async Task<IActionResult> GetUserById(int id)
+        [HttpPost("users/login")]
+        public async Task<IActionResult> LoginUser([FromBody] UserLoginRequest loginRequest)
         {
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null)
+            try
             {
-                return NotFound();
-            }
-            return Ok(user);
-        }
+                var user = await _userService.GetUserByUsernameAsync(loginRequest.Username);
 
-        [HttpPost("users/authenticate")]
-        public async Task<IActionResult> AuthenticateUser([FromBody] LoginRequest login)
-        {
-            var token = await _userService.Authenticate(login.Username, login.Password);
-            if (token == null)
-            {
-                return Unauthorized();
+                if(user == null)
+                {
+                    return Conflict(new { Message = "User not found." });
+                }
+                else
+                {
+                    if(user.Password == loginRequest.Password)
+                    {
+                        var tokenService = HttpContext.RequestServices.GetRequiredService<JwtTokenService>();
+                        var token = tokenService.GenerateToken(user.UserId, loginRequest.Username);
+
+
+                        return Ok(new
+                        {
+                            Message = "Login successful.",
+                            Username = user.Username,
+                            Token = token
+                        });
+                    }
+                    else
+                    {
+                        return Unauthorized(new {Message = "Password is incorrect."});
+                    }
+                }
+
             }
-            return Ok(token);
+            catch (Exception ex)
+            {
+                return Problem(detail: ex.Message);
+            }
         }
     }
 }

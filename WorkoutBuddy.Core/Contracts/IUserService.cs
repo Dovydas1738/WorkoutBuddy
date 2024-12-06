@@ -14,5 +14,6 @@ namespace WorkoutBuddy.Core.Contracts
         Task<User> CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
+        Task<User> GetUserByUsernameAsync(string username);
     }
 }

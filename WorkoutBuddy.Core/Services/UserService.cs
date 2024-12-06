@@ -38,6 +38,11 @@ namespace WorkoutBuddy.Core.Services
             return await _userRepository.GetByIdAsync(id);
         }
 
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _userRepository.GetByUsernameAsync(username);
+        }
+
         public async Task UpdateUserAsync(User user)
         {
             await _userRepository.UpdateAsync(user);
