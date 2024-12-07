@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTczMzQ5MDQxNiwiaWF0IjoxNzMzNDkwNDE2fQ.Ji2AKx2yIhPa8Ht5ISb52O4mXLmSh4faN_pq1Y78co4"
+        Description = "Key from login"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement

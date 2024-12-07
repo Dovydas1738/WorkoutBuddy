@@ -57,37 +57,37 @@ namespace WorkoutBuddy.Api.Controllers
             }
         }
 
-        //[HttpGet("workouttemplates/gettemplates")]
-        //public async Task<IActionResult> GetAllWorkoutTemplates()
-        //{
-        //    try
-        //    {
-        //        var templates = await _workoutTemplateService.GetAllWorkoutTemplatesAsync();
-        //        return Ok(templates);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(detail: ex.Message);
-        //    }
-        //}
+        [HttpGet("workouttemplates/gettemplates")]
+        public async Task<IActionResult> GetAllWorkoutTemplates()
+        {
+            try
+            {
+                var templates = await _workoutTemplateService.GetAllWorkoutTemplatesAsync();
+                return Ok(templates);
+            }
+            catch (Exception ex)
+            {
+                return Problem(detail: ex.Message);
+            }
+        }
 
-        //[HttpGet("workouttemplates/{id}")]
-        //public async Task<IActionResult> GetWorkoutTemplateById(int id)
-        //{
-        //    try
-        //    {
-        //        var template = await _workoutTemplateService.GetWorkoutTemplateByIdAsync(id);
-        //        if (template == null)
-        //        {
-        //            return Conflict(new { Message = "Template not found." });
-        //        }
-        //        return Ok(template);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(detail: ex.Message);
-        //    }
-        //}
+        [HttpGet("workouttemplates/{id}")]
+        public async Task<IActionResult> GetWorkoutTemplateById(int id)
+        {
+            try
+            {
+                var template = await _workoutTemplateService.GetWorkoutTemplateByIdAsync(id);
+                if (template == null)
+                {
+                    return Conflict(new { Message = "Template not found." });
+                }
+                return Ok(template);
+            }
+            catch (Exception ex)
+            {
+                return Problem(detail: ex.Message);
+            }
+        }
 
         //[HttpPut("workouttemplates/{id}")]
         //public async Task<IActionResult> UpdateWorkoutTemplate(int id, [FromBody] WorkoutTemplate updatedTemplate)
